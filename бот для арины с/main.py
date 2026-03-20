@@ -1,13 +1,8 @@
-"""
-Менеджер свидания - Telegram Bot
-"""
-
 import asyncio
 import logging
 import sys
 import os
 import signal
-from pathlib import Path
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
@@ -26,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 async def main():
     if not BOT_TOKEN or BOT_TOKEN == "YOUR_BOT_TOKEN_HERE":
-        logger.error("Установите BOT_TOKEN в файле .env")
+        logger.error("Установите BOT_TOKEN в config.py")
         sys.exit(1)
 
     bot = Bot(

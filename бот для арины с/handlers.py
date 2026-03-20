@@ -7,7 +7,9 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
-from config import HER_NAME, HIS_NAME, PHOTOS_DIR
+from config import BOT_TOKEN, HER_NAME, HIS_NAME
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 router = Router()
 
@@ -41,9 +43,9 @@ def get_location_keyboard() -> InlineKeyboardMarkup:
 
 
 def get_random_photo() -> str | None:
-    photos = [f for f in os.listdir(PHOTOS_DIR) if f.endswith(('.jpg', '.jpeg', '.png'))]
+    photos = [f for f in os.listdir(SCRIPT_DIR) if f.endswith(('.jpg', '.jpeg', '.png')) and f != "1.jpg"]
     if photos:
-        return os.path.join(PHOTOS_DIR, random.choice(photos))
+        return os.path.join(SCRIPT_DIR, random.choice(photos))
     return None
 
 
@@ -149,7 +151,7 @@ async def secret_bonus(callback, state: FSMContext):
 
 @router.callback_query(F.data == "ticket")
 async def send_ticket(callback, state: FSMContext):
-    photo = os.path.join(PHOTOS_DIR, "1.jpg")
+    photo = os.path.join(SCRIPT_DIR, "1.jpg")
     
     now = datetime.datetime.now()
     date_str = now.strftime("%d.%m.%Y")
